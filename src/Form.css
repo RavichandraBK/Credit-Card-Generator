@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+}
+
+.form{
+    display: flex;
+}
+
+.card-input{
+    margin-left: 450px;
+    margin-top: 200px;
+}
+
+.grad {
+    width: 500px;
+    min-height: 754px;
+
+    background: linear-gradient(169.47deg, rgba(4, 31, 27, 0.98) 14.76%, #380C4A 25.62%, #3B0E46 29.25%, #3D0F42 33.37%, #441436 40.15%, #33254E 46.18%, #2B2D59 52.47%, #292654 57.59%, #271F4F 62.33%, #240D37 74.06%, #22052D 88.22%, #22052D 125.39%, #22052D 154.65%, #22052D 154.67%),
+        radial-gradient(rgba(78, 26, 69, 0.2) 0%, rgba(69, 20, 43, 0.2) 14.29%, rgba(69, 20, 43, 0.2) 28.57%, rgba(61, 14, 18, 0.2) 42.86%, rgba(61, 13, 15, 0.2) 57.14%, rgba(61, 13, 15, 0.2) 71.43%, rgba(61, 13, 15, 0.2) 85.71%, rgba(60, 13, 13, 0.2) 100%);
+
+}
+
+input{
+    height: 30px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.13);
+}
+
+input::placeholder{
+    font-family: Inter;
+font-size: 15px;
+font-weight: 600;
+line-height: 18px;
+letter-spacing: 0.125em;
+text-align: left;
+
+padding-left: 15px;
+
+color: rgba(187, 185, 188, 1);
+
+}
+
+#card-name, #card-num{
+    width: 355px;
+    appearance: textfield;
+}
+
+#card-num::-webkit-inner-spin-button,#card-num::-webkit-inner-spin-button{
+    appearance: none;
+}
+#card-mon::-webkit-inner-spin-button,#card-mon::-webkit-inner-spin-button{
+    appearance: none;
+}
+#card-year::-webkit-inner-spin-button,#card-year::-webkit-inner-spin-button{
+    appearance: none;
+}
+#card-cvv::-webkit-inner-spin-button,#card-cvv::-webkit-inner-spin-button{
+    appearance: none;
+}
+
+#card-mon{
+    width: 68px;
+    /* margin-right: 95px; */
+}
+#card-year{
+    width: 68px;
+    margin-left: 20px;
+    /* margin-right: 95px; */
+}
+#card-cvv{
+    width: 150px;
+    
+}
+
+
+#lb-1,#lb-2{
+    display: block;
+    width: 80%;
+    text-align: left;
+    
+}
+
+
+
+#lb-1,#lb-2,#lb-3,#lb-4{
+    font-family: Roboto;
+font-size: 12px;
+font-weight: 700;
+line-height: 25px;
+letter-spacing: 0.155em;
+text-align: left;
+
+}
+
+.con-btn{
+    width: 352px;
+    height: 50px;
+    margin-top: 40px;
+    background-color: rgba(34, 9, 48, 1);
+    color: #fff;
+    border-radius: 6px;
+
+    font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 19px;
+letter-spacing: 0.01em;
+/* text-align: left; */
+}
+
+#er1,#er2,#er3,#er4,#invalid-month,#year-val{
+    font-family: Inter;
+font-size: 12px;
+font-weight: 400;
+line-height: 15px;
+letter-spacing: 0em;
+text-align: left;
+color: rgba(248, 18, 18, 1);
+}
