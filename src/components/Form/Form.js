@@ -2,8 +2,10 @@ import React from 'react'
 import './Form.css'
 import { useState } from 'react'
 
-function Form() {
+function Form(props) {
 
+  let {cardDynamic} = props;
+  
   let [error, setError] = useState(false);
   let [details, setDetails] = useState({
     cardName: "",
@@ -12,6 +14,8 @@ function Form() {
     cardYear: '',
     cardCvv: ''
   })
+
+  let chk = false;
 
   // let [len, setLen] = useState({
   //   cardnumlen: '',
@@ -37,27 +41,43 @@ function Form() {
     else if (details.cardNumber.length > 4) {
       tmp = InputVals.replace(/(\d{4})(\d{0,4})/, "$1 $2");
       setDetails({ ...details, cardNumber: tmp })
-      console.log(tmp)
-
+     
     }
 
   }
 
-  let handleError = (e) => {
-    if (details.cardName === '' || details.cardNumber === '' || details.cardMon === '' || details.cardYear === '' || details.cardCvv === '' || (details.cardMon > 12 || details.cardMon < 1) || (details.cardCvv.length < 3)) {
+  let handleError = () => {
+    if (details.cardName === '' || details.cardNumber === '' || details.cardMon === '' || details.cardYear === '' || details.cardCvv === '' || (details.cardMon > 12 || details.cardMon < 1) || (details.cardCvv.length < 3) || (details.cardNumber.length<19)) {
       setError(true);
+      chk = true;
+      
     }
     else {
       setError(false);
+      chk = false;
+
     }
   }
+
+ 
+ 
+
+
+  let handleSubmit = (e)=>{
+    e.preventDefault();
+    handleError();
+    if(!chk){
+      cardDynamic(details);
+    }
+  }
+
 
   return (
     <>
       <div className='form'>
         <div className='grad'></div>
         <div className='card-input'>
-          <form onSubmit={e => e.preventDefault()}>
+          <form onSubmit={handleSubmit}>
             <div style={{ marginBottom: '25px', display: 'flex', flexDirection: 'column' }}>
 
               <label id='lb-1' htmlFor='card-name'>CARDHOLDER NAME</label>
@@ -67,7 +87,7 @@ function Form() {
                 onKeyDown={(e) => { if (!((e.key >= 'A' && e.key <= 'Z') || (e.key === ' ') || (e.key >= 'a' && e.key <= 'z') || (e.key === 'Backspace'))) { e.preventDefault(); } }}
                 onChange={e => { setDetails({ ...details, cardName: e.target.value }) }}
               />
-              {error && details.cardName.length <= 0 ? <p id='er1' style={{ margin: '0px', textAlign: 'left' }}>CardHolder name  required</p> : ""}
+              {error && details.cardName.length <= 0 && <p id='er1' style={{ margin: '0px', textAlign: 'left' }}>CardHolder name  required</p>}
             </div>
 
             <div style={{ marginBottom: '25px', display: 'flex', flexDirection: 'column' }}>
@@ -81,7 +101,11 @@ function Form() {
                 onKeyUp={cardNumberFormat}
                 onChange={e => { setDetails({ ...details, cardNumber: e.target.value }) }}
               />
-              {error && details.cardNumber.length <= 0 ? <p id='er2' style={{ margin: '0px', textAlign: 'left' }}>card number is required</p> : ""}
+              {error && details.cardNumber.length <= 0 ? <p id='er2' style={{ margin: '0px', textAlign: 'left' }}>Card number required</p> : ""}
+              {
+                  (error && (details.cardNumber.length > 0 && details.cardNumber.length < 19)) ?
+                    <p id='invalid-cardnum' >Invalid card number</p> : ""
+                }
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
@@ -91,13 +115,13 @@ function Form() {
                   <div style={{ width: '38%' }}>
                     <input id='card-mon'
                       placeholder='MM'
-
+                      value={details.cardMon}
                       // onInvalid={e => { if(e.target.value>12 || e.target.value<1){e.target.setCustomValidity('Enter a valid month')}; }} 
                       type='text'
                       maxLength={2}
                       onKeyDown={(e) => { if (!((e.key >= '0' && e.key <= '9') || (e.key === 'Backspace'))) { e.preventDefault(); } }}
-                      onKeyUp={(e) => { if ((e.key >= '0' && e.key <= '9' && e.target.value.length <= 1)) { e.target.value = '0' + e.target.value; } }}
-                      onChange={e => { setDetails({ ...details, cardMon: e.target.value }) }}
+                      onKeyUp={(e) => { if ((e.key >= '0' && e.key <= '9' && e.target.value.length <= 1)) { setDetails({...details,cardMon:'0' + e.target.value}) } }}
+                      onChange={e => { setDetails({ ...details, cardMon: e.target.value }); }}
                     />
                     {
                       (error && details.cardMon.length <= 0) ?
@@ -112,8 +136,11 @@ function Form() {
                     <input id='card-year'
                       placeholder='YY'
                       type='text'
+                      value={details.cardYear}
                       maxLength={2}
                       onKeyDown={(e) => { if (!((e.key >= '0' && e.key <= '9') || (e.key === 'Backspace'))) { e.preventDefault(); } }}
+                      onKeyUp={(e) => { if ((e.key >= '0' && e.key <= '9' && e.target.value.length <= 1)) { setDetails({...details,cardYear:'0' + e.target.value}) } }}
+
                       onChange={e => setDetails({ ...details, cardYear: e.target.value })}
                     />
                     {
@@ -130,7 +157,7 @@ function Form() {
                 <input id='card-cvv'
                   placeholder='e.g. 123'
                   type='text'
-                  minLength={3}
+
                   maxLength={3}
                   onKeyDown={(e) => { if (!((e.key >= '0' && e.key <= '9') || (e.key === 'Backspace'))) { e.preventDefault(); } }}
                   onChange={e => setDetails({ ...details, cardCvv: e.target.value })}
@@ -146,10 +173,7 @@ function Form() {
               </div>
 
             </div>
-
-
-
-            <button className='con-btn' onClick={e => { handleError() }}>Confirm</button>
+            <button className='con-btn'>Confirm</button>
 
           </form>
         </div>

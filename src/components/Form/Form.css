@@ -12,7 +12,7 @@
 }
 
 .grad {
-    width: 500px;
+    width: 570px;
     min-height: 754px;
 
     background: linear-gradient(169.47deg, rgba(4, 31, 27, 0.98) 14.76%, #380C4A 25.62%, #3B0E46 29.25%, #3D0F42 33.37%, #441436 40.15%, #33254E 46.18%, #2B2D59 52.47%, #292654 57.59%, #271F4F 62.33%, #240D37 74.06%, #22052D 88.22%, #22052D 125.39%, #22052D 154.65%, #22052D 154.67%),
@@ -108,7 +108,7 @@ letter-spacing: 0.01em;
 /* text-align: left; */
 }
 
-#er1,#er2,#er3,#er4,#invalid-month,#year-val{
+#er1,#er2,#er3,#er4,#invalid-month,#year-val,#invalid-cardnum{
     font-family: Inter;
 font-size: 12px;
 font-weight: 400;
