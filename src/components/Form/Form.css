@@ -117,3 +117,15 @@ letter-spacing: 0em;
 text-align: left;
 color: rgba(248, 18, 18, 1);
 }
+
+.toast{
+    background: #33254E;
+    width: 450px;
+    height: 75px;
+    font-family: Inter;
+    text-align: center;
+    font-weight: 400;
+    font-size: 25px;
+    color: #fff;
+}
+

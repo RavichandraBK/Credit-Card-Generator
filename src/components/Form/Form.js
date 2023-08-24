@@ -1,6 +1,8 @@
 import React from 'react'
 import './Form.css'
 import { useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Form(props) {
 
@@ -54,13 +56,18 @@ function Form(props) {
     }
     else {
       setError(false);
-      chk = false;
+      
 
     }
   }
 
  
- 
+ let showToast = ()=>{
+    toast('✅Successfully updated the card!! ',{
+      position:toast.POSITION.BOTTOM_CENTER,
+      className:'toast'
+    })
+ }
 
 
   let handleSubmit = (e)=>{
@@ -68,6 +75,7 @@ function Form(props) {
     handleError();
     if(!chk){
       cardDynamic(details);
+      showToast();
     }
   }
 
@@ -121,7 +129,7 @@ function Form(props) {
                       maxLength={2}
                       onKeyDown={(e) => { if (!((e.key >= '0' && e.key <= '9') || (e.key === 'Backspace'))) { e.preventDefault(); } }}
                       onKeyUp={(e) => { if ((e.key >= '0' && e.key <= '9' && e.target.value.length <= 1)) { setDetails({...details,cardMon:'0' + e.target.value}) } }}
-                      onChange={e => { setDetails({ ...details, cardMon: e.target.value }); }}
+                      onChange={e => { setDetails({ ...details, cardMon: e.target.value });if ((e.key >= '0' && e.key <= '9' && e.target.value.length <= 1)) { setDetails({...details,cardMon:'0' + e.target.value}) } }}
                     />
                     {
                       (error && details.cardMon.length <= 0) ?
@@ -153,7 +161,7 @@ function Form(props) {
                 </div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <label id='lb-4' htmlFor='card-name'>CVV</label>
+                <label id='lb-4' htmlFor='card-name'>CVC</label>
                 <input id='card-cvv'
                   placeholder='e.g. 123'
                   type='text'
@@ -164,11 +172,11 @@ function Form(props) {
                 />
                 {
                   error && details.cardCvv.length <= 0 ?
-                    <p id='er4' >CVV required</p> : ""
+                    <p id='er4' >CVC required</p> : ""
                 }
                 {
                   (error && (details.cardCvv.length > 0 && details.cardCvv.length < 3)) ?
-                    <p id='invalid-month' >Invalid cvv</p> : ""
+                    <p id='invalid-month' >Invalid cvc</p> : ""
                 }
               </div>
 
@@ -177,6 +185,7 @@ function Form(props) {
 
           </form>
         </div>
+        <ToastContainer toastStyle={{ backgroundColor: "green",color:'#fff' }}/>
       </div>
     </>
   )
